@@ -43,9 +43,5 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-
-
-
 // END OF LOADED  
 });
