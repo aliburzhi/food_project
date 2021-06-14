@@ -96,5 +96,46 @@ window.addEventListener('DOMContentLoaded', () => {
     // END OF TIMER------------------------------------------------------------------------
 
 
+    // MODAL WINDOW START -----------------------------------------------------
+    const modalTrigger = document.querySelectorAll('[data-modal]'),
+            modal = document.querySelector('.modal'),
+            modalCloseBtn = document.querySelector('[data-close]');
+    
+    
+    modalTrigger.forEach(btn => {
+        btn.addEventListener('click', () => {
+            modal.classList.add('show');
+            modal.classList.remove('hide');
+            document.body.style.overflow = 'hidden';
+            
+        });
+    });
+        
+    function closeModal() {
+         modal.classList.add('hide');
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    modalCloseBtn.addEventListener('click', closeModal);
+
+
+// Закрываем окно при нажатии на серую область вокруг окна
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+// Закрытие модалки на ESC ------------------
+
+    document.addEventListener('keydown', (e) => {
+        if (e.code == "Escape" && modal.classList.contains('show')) {
+            closeModal();
+            }
+    });
+
+
+
+    // MODAL WINDOW END----------------------------------------------------------
     // END OF LOADED  
 });
