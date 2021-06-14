@@ -1,11 +1,11 @@
 window.addEventListener('DOMContentLoaded', () => {
 
-// TABS
+    // TABS
     const tabs = document.querySelectorAll('.tabheader__item'),
         tabsContent = document.querySelectorAll('.tabcontent'),
         tabsParent = document.querySelector('.tabheader__items');
-    
-    
+
+
     function hideTabContent() {
         tabsContent.forEach(item => {
             item.classList.add('hide');
@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', () => {
     hideTabContent();
     showTabContent();
 
-    tabsParent.addEventListener('click', function(event) {
+    tabsParent.addEventListener('click', function (event) {
         const target = event.target;
 
         if (target && target.classList.contains('tabheader__item')) {
@@ -42,14 +42,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-// TIMER ON PAGE -----------------------------------------------------------------------------
+    // TIMER ON PAGE -----------------------------------------------------------------------------
     const deadline = '2021-06-13';
 
     function getTimeremaining(endtime) {
         const t = Date.parse(endtime) - Date.parse(new Date()),
-             days = Math.floor(t / (1000 * 60 * 60 * 24)),
-             hours = Math.floor((t / (1000 * 60 * 60) % 24)),
-             minutes = Math.floor((t / 1000 / 60) % 60),
+            days = Math.floor(t / (1000 * 60 * 60 * 24)),
+            hours = Math.floor((t / (1000 * 60 * 60) % 24)),
+            minutes = Math.floor((t / 1000 / 60) % 60),
             seconds = Math.floor((t / 1000) % 60);
         return {
             'total': t,
@@ -63,7 +63,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function getZero(num) {
         if (num >= 0 && num < 10) {
-            return `0${num}`; 
+            return `0${num}`;
         } else {
             return num;
         }
@@ -78,7 +78,7 @@ window.addEventListener('DOMContentLoaded', () => {
         timeInterval = setInterval(updateClock, 1000);
 
         updateClock();
-        
+
         function updateClock() {
             const t = getTimeremaining(endtime);
 
@@ -93,7 +93,8 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
     setClock('.timer', deadline);
-    // END OF TIMER---------------------------------------------------------------------------
+    // END OF TIMER------------------------------------------------------------------------
 
-// END OF LOADED  
+
+    // END OF LOADED  
 });
