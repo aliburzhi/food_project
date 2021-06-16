@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     // TIMER ON PAGE -----------------------------------------------------------------------------
-    const deadline = '2021-06-13';
+    const deadline = '2021-06-30';
 
     function getTimeremaining(endtime) {
         const t = Date.parse(endtime) - Date.parse(new Date()),
@@ -101,16 +101,21 @@ window.addEventListener('DOMContentLoaded', () => {
             modal = document.querySelector('.modal'),
             modalCloseBtn = document.querySelector('[data-close]');
     
+    // ФУНКЦИЯ ОТКРЫТИЯ МОДАЛКИ clearInterval для того 
+    // чтобы если юзер сам открыл окно оно не открывалось по таймеру
+    function openModal() {
+    modal.classList.add('show');
+    modal.classList.remove('hide');
+    document.body.style.overflow = 'hidden';
+        clearInterval(modalTimerId);
+    };
     
     modalTrigger.forEach(btn => {
-        btn.addEventListener('click', () => {
-            modal.classList.add('show');
-            modal.classList.remove('hide');
-            document.body.style.overflow = 'hidden';
-            
-        });
+        btn.addEventListener('click', openModal);
     });
         
+
+
     function closeModal() {
          modal.classList.add('hide');
         modal.classList.remove('show');
@@ -133,6 +138,23 @@ window.addEventListener('DOMContentLoaded', () => {
             closeModal();
             }
     });
+
+// Открываем модалки по времени (таймеру)
+    const modalTimerId = setTimeout(openModal, 10000);
+
+// Otкрываем модалку когда долистали до конца
+// И выключаем слушателя когда Юзер 1 раз уже это сделал
+    function showModalByScroll() {
+        if (window.pageYOffset + document.documentElement.clientHeight >= document.
+            documentElement.scrollHeight) {
+            openModal();
+            window.removeEventListener('scroll', showModalByScroll);
+        }
+    }
+
+// Otкрываем модалку когда долистали до конца
+    
+    window.addEventListener('scroll', showModalByScroll);
 
 
 
