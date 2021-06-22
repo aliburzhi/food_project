@@ -94,7 +94,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     setClock('.timer', deadline);
     // END OF TIMER------------------------------------------------------------------------
-
+    // Конетекст вызова
 
     // MODAL WINDOW START -----------------------------------------------------
     const modalTrigger = document.querySelectorAll('[data-modal]'),
