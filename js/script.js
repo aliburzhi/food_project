@@ -288,11 +288,11 @@ class MenuCard {
 
 
         const thanksModal = document.createElement('div');
-        thanksModal.classList.add('.modal__dialog');
+        thanksModal.classList.add('modal__dialog');
         thanksModal.innerHTML = `
             <div class="modal__content">
                 <div class="modal__close" data-close>x</div>
-                <div> class="modal__title">${message}</div>
+                <div class="modal__title">${message}</div>
             </div>
         `;
 
