@@ -312,9 +312,11 @@ class MenuCard {
 // END OF Реализуем окно спасибо что отправили данные ------------------------------ 
     // ОТПРАЛЯЕМ ДАННЫЕ ИЗ ФОРМ НА СЕРВЕР
 
+// РАБОТАЕМ С БАЗОЙ ДАННЫХ
+    fetch('http://localhost:3000/menu')
+        .then(data => data.json())
+        .then(res => console.log(res));
 
 
-
-    
     // END OF LOADED  
 });
