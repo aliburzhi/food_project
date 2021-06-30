@@ -99,48 +99,48 @@ window.addEventListener('DOMContentLoaded', () => {
     // MODAL WINDOW START -----------------------------------------------------
     const modalTrigger = document.querySelectorAll('[data-modal]'),
         modal = document.querySelector('.modal');
-    
+
     // ФУНКЦИЯ ОТКРЫТИЯ МОДАЛКИ clearInterval для того 
     // чтобы если юзер сам открыл окно оно не открывалось по таймеру
     function openModal() {
-    modal.classList.add('show');
-    modal.classList.remove('hide');
-    document.body.style.overflow = 'hidden';
+        modal.classList.add('show');
+        modal.classList.remove('hide');
+        document.body.style.overflow = 'hidden';
         clearInterval(modalTimerId);
     };
-    
+
     modalTrigger.forEach(btn => {
         btn.addEventListener('click', openModal);
     });
-        
+
 
 
     function closeModal() {
-         modal.classList.add('hide');
+        modal.classList.add('hide');
         modal.classList.remove('show');
         document.body.style.overflow = '';
     }
 
 
-// Закрываем окно при нажатии на серую область вокруг окна
+    // Закрываем окно при нажатии на серую область вокруг окна
     modal.addEventListener('click', (e) => {
         if (e.target === modal || e.target.getAttribute('data-close') == '') {
             closeModal();
         }
     });
-// Закрытие модалки на ESC ------------------
+    // Закрытие модалки на ESC ------------------
 
     document.addEventListener('keydown', (e) => {
         if (e.code == "Escape" && modal.classList.contains('show')) {
             closeModal();
-            }
+        }
     });
 
-// Открываем модалки по времени (таймеру)
+    // Открываем модалки по времени (таймеру)
     const modalTimerId = setTimeout(openModal, 50000);
 
-// Otкрываем модалку когда долистали до конца
-// И выключаем слушателя когда Юзер 1 раз уже это сделал
+    // Otкрываем модалку когда долистали до конца
+    // И выключаем слушателя когда Юзер 1 раз уже это сделал
     function showModalByScroll() {
         if (window.pageYOffset + document.documentElement.clientHeight >= document.
             documentElement.scrollHeight) {
@@ -149,33 +149,33 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-// Otкрываем модалку когда долистали до конца
-    
+    // Otкрываем модалку когда долистали до конца
+
     window.addEventListener('scroll', showModalByScroll);
-// MODAL WINDOW END----------------------------------------------------------
-    
+    // MODAL WINDOW END----------------------------------------------------------
 
-// ИСПОЛЬЗУЕМ КЛАССЫ ДЛЯ КАРТОЧЕК --------------------------------
 
-class MenuCard {
-    constructor(src, alt, title, description, price, parentSelector) {
-        this.src = src;
-        this.alt = alt;
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.parent = document.querySelector(parentSelector);
-        this.transfer = 27;
-        this.changeToUAH();
-    }
+    // ИСПОЛЬЗУЕМ КЛАССЫ ДЛЯ КАРТОЧЕК --------------------------------
 
-    changeToUAH() {
-        this.price = this.price * this.transfer;
-    }
+    class MenuCard {
+        constructor(src, alt, title, description, price, parentSelector) {
+            this.src = src;
+            this.alt = alt;
+            this.title = title;
+            this.description = description;
+            this.price = price;
+            this.parent = document.querySelector(parentSelector);
+            this.transfer = 27;
+            this.changeToUAH();
+        }
 
-    render() {
-        const element = document.createElement('div');
-        element.innerHTML = `
+        changeToUAH() {
+            this.price = this.price * this.transfer;
+        }
+
+        render() {
+            const element = document.createElement('div');
+            element.innerHTML = `
         <div class="menu__item">
             <img src=${this.src} alt=${this.alt} />
             <h3 class="menu__item-subtitle">${this.title}</h3>
@@ -189,12 +189,12 @@ class MenuCard {
             </div>
           </div>
         `;
-        this.parent.append(element);
-    }
-    
+            this.parent.append(element);
+        }
+
 
     }
-    
+
     new MenuCard(
         "img/tabs/vegy.jpg",
         "vegy",
@@ -212,7 +212,7 @@ class MenuCard {
         21,
         '.menu .container'
     ).render();
-    
+
     new MenuCard(
         "img/tabs/elite.jpg",
         "elite",
@@ -221,10 +221,10 @@ class MenuCard {
         14,
         '.menu .container'
     ).render();
-    
-// END OF ИСПОЛЬЗУЕМ КЛАССЫ ДЛЯ КАРТОЧЕК --------------------------------
 
-// ОТПРАЛЯЕМ ДАННЫЕ ИЗ ФОРМ НА СЕРВЕР
+    // END OF ИСПОЛЬЗУЕМ КЛАССЫ ДЛЯ КАРТОЧЕК --------------------------------
+
+    // ОТПРАЛЯЕМ ДАННЫЕ ИЗ ФОРМ НА СЕРВЕР
 
     const forms = document.querySelectorAll('form');
 
@@ -250,9 +250,9 @@ class MenuCard {
             `;
             form.insertAdjacentElement('afterend', statusMessage);
 
-            
+
             // request.setRequestHeader('Content-type', 'application/json');
-            
+
             const formData = new FormData(form);
 
 
@@ -269,21 +269,21 @@ class MenuCard {
                 },
                 body: JSON.stringify(object)
             })
-            .then(data => data.text())
-            .then(data => {
-                console.log(data);
-                showThanksModal(message.success);
-                form.reset();
-                statusMessage.remove();
-            }).catch(() => {
-                showThanksModal(message.failure);
-            }).finally(() => {
-                form.reset();
-            });
+                .then(data => data.text())
+                .then(data => {
+                    console.log(data);
+                    showThanksModal(message.success);
+                    form.reset();
+                    statusMessage.remove();
+                }).catch(() => {
+                    showThanksModal(message.failure);
+                }).finally(() => {
+                    form.reset();
+                });
         });
     }
 
-// Реализуем окно спасибо что отправили данные 
+    // Реализуем окно спасибо что отправили данные 
 
     function showThanksModal(message) {
         const prevModalDialog = document.querySelector('.modal__dialog');
@@ -308,15 +308,22 @@ class MenuCard {
             prevModalDialog.classList.remove('hide');
             closeModal();
         }, 4000);
-    } 
-// END OF Реализуем окно спасибо что отправили данные ------------------------------ 
+    }
+    // END OF Реализуем окно спасибо что отправили данные ------------------------------ 
     // ОТПРАЛЯЕМ ДАННЫЕ ИЗ ФОРМ НА СЕРВЕР
 
-// РАБОТАЕМ С БАЗОЙ ДАННЫХ
+    // РАБОТАЕМ С БАЗОЙ ДАННЫХ
     fetch('http://localhost:3000/menu')
         .then(data => data.json())
         .then(res => console.log(res));
 
+
+    // ДЕЛАЕМ СЛАЙДЕР В ПРОЕКТЕ
+
+    
+
+
+    // КОНЕЦ СЛАЙДЕРА В ПРОЕКТЕ
 
     // END OF LOADED  
 });
