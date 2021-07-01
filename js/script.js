@@ -1,13 +1,13 @@
 window.addEventListener('DOMContentLoaded', function () {
 
     // Tabs
-    
+
     let tabs = document.querySelectorAll('.tabheader__item'),
         tabsContent = document.querySelectorAll('.tabcontent'),
         tabsParent = document.querySelector('.tabheader__items');
 
     function hideTabContent() {
-        
+
         tabsContent.forEach(item => {
             item.classList.add('hide');
             item.classList.remove('show', 'fade');
@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', function () {
         tabsContent[i].classList.remove('hide');
         tabs[i].classList.add('tabheader__item_active');
     }
-    
+
     hideTabContent();
     showTabContent();
 
@@ -38,7 +38,7 @@ window.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
-    
+
     // Timer
 
     const deadline = '2020-05-11';
@@ -210,17 +210,17 @@ window.addEventListener('DOMContentLoaded', function () {
             },
             body: data
         });
-    
+
         return await res.json();
     };
 
     async function getResource(url) {
         let res = await fetch(url);
-    
+
         if (!res.ok) {
             throw new Error(`Could not fetch ${url}, status: ${res.status}`);
         }
-    
+
         return await res.json();
     }
 
@@ -235,7 +235,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 margin: 0 auto;
             `;
             form.insertAdjacentElement('afterend', statusMessage);
-        
+
             const formData = new FormData(form);
 
             const json = JSON.stringify(Object.fromEntries(formData.entries()));
@@ -298,7 +298,7 @@ window.addEventListener('DOMContentLoaded', function () {
         total.textContent = slides.length;
         current.textContent = slideIndex;
     }
-    
+
     slidesField.style.width = 100 * slides.length + '%';
     slidesField.style.display = 'flex';
     slidesField.style.transition = '0.5s all';
@@ -422,4 +422,54 @@ window.addEventListener('DOMContentLoaded', function () {
             dots[slideIndex - 1].style.opacity = 1;
         });
     });
+
+
+    // КАЛЬКУЛЯТОР БЖУ
+
+    const result = document.querySelector('.calculating__result span');
+    let sex, height, weight, age, ratio;
+
+    function calcTotal() {
+        if (!sex || !height || !weight || !age || !ratio) {
+            result.textContent = '____';
+            return;
+        }
+        
+        if (sex === 'female') {
+            result.textContent = (447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age)) * ratio;
+        } else {
+            result.textContent = (88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)) * ratio;
+        }
+    
+    
+    }
+        
+    calcTotal();
+
+    function getStaticInformation(parentSelector, activeClass) {
+        const elements = document.querySelectorAll(`${parentSelector} div`);
+// По нажатию на активность берем коефициент который записан в HTML data-ratio
+        document.querySelector(parentSelector).addEventListener('click', (e) => {
+            if (e.target.getAttribute('data-ratio')) {
+                ratio = +e.target.getAttribute('data-ratio');
+            } else {
+                sex = e.target.getAttribute('id');
+            }
+
+
+            console.log(ratio, sex);
+
+            elements.forEach(elem => {
+                elem.classList.remove(activeClass);
+            });
+
+            e.target.classList.add(activeClass);
+        });
+    }
+
+    getStaticInformation('#gender', 'calculation__choose-item_active');
+    getStaticInformation('.calculation__choose_big', 'calculation__choose-item_active');
+
+
+// THE END   
 });
