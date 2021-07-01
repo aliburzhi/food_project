@@ -427,7 +427,10 @@ window.addEventListener('DOMContentLoaded', function () {
     // КАЛЬКУЛЯТОР БЖУ
 
     const result = document.querySelector('.calculating__result span');
-    let sex, height, weight, age, ratio;
+    // Указываем переменные и + ставим дефолтные данные для пола и ratio 
+    let sex = 'female',
+        height, weight, age,
+        ratio = '1.375';
 
     function calcTotal() {
         if (!sex || !height || !weight || !age || !ratio) {
@@ -448,8 +451,9 @@ window.addEventListener('DOMContentLoaded', function () {
 
     function getStaticInformation(parentSelector, activeClass) {
         const elements = document.querySelectorAll(`${parentSelector} div`);
-// По нажатию на активность берем коефициент который записан в HTML data-ratio
-        document.querySelector(parentSelector).addEventListener('click', (e) => {
+
+        elements.forEach(elem => {
+            elem.addEventListener('click', (e) => {
             if (e.target.getAttribute('data-ratio')) {
                 ratio = +e.target.getAttribute('data-ratio');
             } else {
@@ -464,6 +468,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
             calcTotal();
         });
+        })
+        // По нажатию на активность берем коефициент который записан в HTML data-ratio
     }
 
     getStaticInformation('#gender', 'calculating__choose-item_active');
