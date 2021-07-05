@@ -427,10 +427,25 @@ window.addEventListener('DOMContentLoaded', function () {
     // КАЛЬКУЛЯТОР БЖУ
 
     const result = document.querySelector('.calculating__result span');
-    // Указываем переменные и + ставим дефолтные данные для пола и ratio 
-    let sex = 'female',
-        height, weight, age,
-        ratio = '1.375';
+    // Указываем переменные и + ставим дефолтные данные для пола и ratio (сразу в Local Storage) 
+    let sex, height, weight, age, ratio;
+
+     if (localStorage.getItem('sex')) {
+         sex = localStorage.getItem('sex');
+     } else {
+         sex = 'female';
+         localStorage.setItem('sex', 'female');
+    }
+
+    if (localStorage.getItem('ratio')) {
+        ratio = localStorage.getItem('ratio');
+     } else {
+        ratio = 1.375;
+        localStorage.setItem('ratio', 1.375);
+    }
+
+
+
 
     function calcTotal() {
         if (!sex || !height || !weight || !age || !ratio) {
