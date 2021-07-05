@@ -1,3 +1,5 @@
+import {closeModal, openModal} from './modal'
+
 function forms() {
     // Forms
 
