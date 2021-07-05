@@ -1,5 +1,5 @@
 function slider() {
-       // Slider
+    // Slider
 
     let offset = 0;
     let slideIndex = 1;
@@ -16,12 +16,12 @@ function slider() {
 
     if (slides.length < 10) {
         total.textContent = `0${slides.length}`;
-        current.textContent = `0${slideIndex}`;
+        current.textContent =  `0${slideIndex}`;
     } else {
         total.textContent = slides.length;
-        current.textContent = slideIndex;
+        current.textContent =  slideIndex;
     }
-
+    
     slidesField.style.width = 100 * slides.length + '%';
     slidesField.style.display = 'flex';
     slidesField.style.transition = '0.5s all';
@@ -35,7 +35,7 @@ function slider() {
     slider.style.position = 'relative';
 
     const indicators = document.createElement('ol'),
-        dots = [];
+          dots = [];
     indicators.classList.add('carousel-indicators');
     indicators.style.cssText = `
         position: absolute;
@@ -77,10 +77,10 @@ function slider() {
     }
 
     next.addEventListener('click', () => {
-        if (offset == (+width.slice(0, width.length - 2) * (slides.length - 1))) {
+        if (offset == (deleteNotDigits(width) * (slides.length - 1))) {
             offset = 0;
         } else {
-            offset += +width.slice(0, width.length - 2);
+            offset += deleteNotDigits(width); 
         }
 
         slidesField.style.transform = `translateX(-${offset}px)`;
@@ -92,20 +92,20 @@ function slider() {
         }
 
         if (slides.length < 10) {
-            current.textContent = `0${slideIndex}`;
+            current.textContent =  `0${slideIndex}`;
         } else {
-            current.textContent = slideIndex;
+            current.textContent =  slideIndex;
         }
 
         dots.forEach(dot => dot.style.opacity = ".5");
-        dots[slideIndex - 1].style.opacity = 1;
+        dots[slideIndex-1].style.opacity = 1;
     });
 
     prev.addEventListener('click', () => {
         if (offset == 0) {
-            offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+            offset = deleteNotDigits(width) * (slides.length - 1);
         } else {
-            offset -= +width.slice(0, width.length - 2);
+            offset -= deleteNotDigits(width);
         }
 
         slidesField.style.transform = `translateX(-${offset}px)`;
@@ -117,13 +117,13 @@ function slider() {
         }
 
         if (slides.length < 10) {
-            current.textContent = `0${slideIndex}`;
+            current.textContent =  `0${slideIndex}`;
         } else {
-            current.textContent = slideIndex;
+            current.textContent =  slideIndex;
         }
 
         dots.forEach(dot => dot.style.opacity = ".5");
-        dots[slideIndex - 1].style.opacity = 1;
+        dots[slideIndex-1].style.opacity = 1;
     });
 
     dots.forEach(dot => {
@@ -131,20 +131,24 @@ function slider() {
             const slideTo = e.target.getAttribute('data-slide-to');
 
             slideIndex = slideTo;
-            offset = +width.slice(0, width.length - 2) * (slideTo - 1);
+            offset = deleteNotDigits(width) * (slideTo - 1);
 
             slidesField.style.transform = `translateX(-${offset}px)`;
 
             if (slides.length < 10) {
-                current.textContent = `0${slideIndex}`;
+                current.textContent =  `0${slideIndex}`;
             } else {
-                current.textContent = slideIndex;
+                current.textContent =  slideIndex;
             }
 
             dots.forEach(dot => dot.style.opacity = ".5");
-            dots[slideIndex - 1].style.opacity = 1;
+            dots[slideIndex-1].style.opacity = 1;
         });
     });
+
+    function deleteNotDigits(str) {
+        return +str.replace(/\D/g, '');
+    }
 }
 
 module.exports = slider;
