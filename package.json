@@ -16,7 +16,7 @@
     "url": "https://github.com/AliBurzhi/practice2/issues"
   },
   "homepage": "https://github.com/AliBurzhi/practice2#readme",
-  "browserlist": [
+  "browserslist": [
     "> 1%"
   ],
   "devDependencies": {
