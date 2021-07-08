@@ -28,3 +28,5 @@ window.addEventListener('DOMContentLoaded', function () {
         field: '.offer__slider-inner'
     });
 });
+
+// Add Comments for everyOne
